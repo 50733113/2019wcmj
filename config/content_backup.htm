@@ -1,5 +1,6 @@
 <h1>Game</h1>
 <h2>game1</h2>
+<p></p>
 <p><button onclick="myFunction()">按一下</button></p>
 <p id="demo"></p>
 <script>// <![CDATA[
@@ -9,7 +10,16 @@ function myFunction() {
  //alert("不要亂按")
 }
 // ]]></script>
-<h2>game2</h2>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;p&gt;&lt;button onclick="myFunction()"&gt;按一下&lt;/button&gt;&lt;/p&gt;
+&lt;p id="demo"&gt;&lt;/p&gt;
+&lt;script&gt;// &lt;![CDATA[
+function myFunction() {
+  document.getElementById("demo").innerHTML = Math.floor(Math.random()*50 + 1);
+  //document.getElementById("demo").innerHTML = "不要亂按";
+ //alert("不要亂按")
+}
+// ]]&gt;&lt;/script&gt;</pre>
+<h2>game 2</h2>
 <p><p1>歡迎光臨</p1></p>
 <script type="text/javascript">// <![CDATA[
 var cwidth = 400;
@@ -164,7 +174,191 @@ function draw2mid() {
 // ]]></script>
 <p><canvas height="300" id="canvas" width="400"> Your browser doesn't support the HTML5 element canvas. </canvas> <br/> <button onclick="throwdice();">拚一手</button></p>
 <form id="f" name="f">Stage: <input name="stage" type="text" value="First Throw"/> Point: <input name="pv" type="text" value="   "/> Outcome: <input name="outcome" type="text" value="     "/></form>
-<h2>game3 canvas1</h2>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;p&gt;&lt;p1&gt;歡迎光臨&lt;/p1&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;// &lt;![CDATA[
+var cwidth = 400;
+    var cheight = 300;
+    var dicex = 50;
+    var dicey = 50;
+    var dicewidth = 100;
+    var diceheight = 100;
+    var dotrad = 6;
+    var ctx;
+    var dx;
+    var dy;
+    var firstturn = true;
+    var point;
+function throwdice() {
+    var sum;
+    var ch = 1+Math.floor(Math.random()*6);
+    sum = ch;
+    dx = dicex;
+    dy = dicey;
+    drawface(ch);
+    dx = dicex + 150;
+    ch=1 + Math.floor(Math.random()*6);
+    sum += ch;
+    drawface(ch);
+    if (firstturn) {
+        switch(sum) {
+            case 7:
+            case 11:
+              document.f.outcome.value="You win!";
+              break;
+            case 2:
+            case 3:
+            case 12:
+              document.f.outcome.value="You lose!";
+              break;
+            default:
+              point = sum;
+              document.f.pv.value=point;
+              firstturn = false;
+              document.f.stage.value="Need follow-up throw.";
+              document.f.outcome.value="   ";
+        }
+    }
+    else {
+        switch(sum) {
+        case point:
+           document.f.outcome.value="You win!";
+           document.f.stage.value="Back to first throw.";
+           document.f.pv.value=" ";
+           firstturn = true;
+           break;
+        case 7:
+           document.f.outcome.value="You lose!";
+           document.f.stage.value="Back to first throw.";
+           document.f.pv.value=" ";
+           firstturn = true;
+        }
+            }
+}
+function drawface(n) {
+  ctx = document.getElementById('canvas').getContext('2d');  
+  ctx.lineWidth = 5;
+  ctx.clearRect(dx,dy,dicewidth,diceheight);
+  ctx.strokeRect(dx,dy,dicewidth,diceheight)
+  var dotx;
+  var doty;
+  ctx.fillStyle = "#009966";
+    switch(n) {
+        case 1:
+         draw1();
+         break;
+        case 2:
+         draw2();
+         break;
+        case 3:
+         draw2();
+         draw1();
+         break;
+        case 4:
+         draw4();
+         break;
+        case 5:
+         draw4();
+         draw1();
+         break;
+        case 6:
+         draw4();
+         draw2mid();
+         break;
+         
+    }
+}
+function draw1() {
+    var dotx;
+    var doty;
+    ctx.beginPath();
+    dotx = dx + .5*dicewidth;
+    doty = dy + .5*diceheight;
+    ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+    ctx.closePath();
+    ctx.fill();
+}
+function draw2() {
+    var dotx;
+    var doty;
+    ctx.beginPath();
+    dotx = dx + 3*dotrad;
+    doty = dy + 3*dotrad;
+    ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+    dotx = dx+dicewidth-3*dotrad;
+    doty = dy+diceheight-3*dotrad;
+    ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+    ctx.closePath();
+    ctx.fill();
+}
+function draw4() {
+    var dotx;
+    var doty;
+    ctx.beginPath();
+    dotx = dx + 3*dotrad;
+    doty = dy + 3*dotrad;
+    ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+    dotx = dx+dicewidth-3*dotrad;
+    doty = dy+diceheight-3*dotrad;
+    ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+    ctx.closePath();
+    ctx.fill();
+    ctx.beginPath();
+    dotx = dx + 3*dotrad;
+    doty = dy + diceheight-3*dotrad;  //no change
+    ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+    dotx = dx+dicewidth-3*dotrad;
+    doty = dy+ 3*dotrad;
+    ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+    ctx.closePath();
+    ctx.fill(); 
+}
+function draw2mid() {
+    var dotx;
+    var doty;
+    ctx.beginPath();
+    dotx = dx + 3*dotrad;
+    doty = dy + .5*diceheight;
+    ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+    dotx = dx+dicewidth-3*dotrad;
+    doty = dy + .5*diceheight; //no change
+    ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+    ctx.closePath();
+    ctx.fill();
+}
+// ]]&gt;&lt;/script&gt;
+&lt;p&gt;&lt;canvas height="300" id="canvas" width="400"&gt; Your browser doesn't support the HTML5 element canvas. &lt;/canvas&gt; &lt;br&gt; &lt;button onclick="throwdice();"&gt;拚一手&lt;/button&gt;&lt;/p&gt;
+&lt;form id="f" name="f"&gt;Stage: &lt;input name="stage" type="text" value="First Throw"&gt; Point: &lt;input name="pv" type="text" value="   "&gt; Outcome: &lt;input name="outcome" type="text" value="     "&gt;&lt;/form&gt;</pre>
+<p></p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;p&gt;&lt;canvas height="300" id="canvas" width="400"&gt; Your browser doesn't support the HTML5 element canvas. &lt;/canvas&gt;&lt;/p&gt;
+&lt;script&gt;// &lt;![CDATA[
+canvas = document.getElementById("canvas");
+ctx = canvas.getContext('2d');
+ 
+function draw(){
+ ctx.beginPath();
+ ctx.strokeStyle = "rgb(200,0,0)";
+ ctx.arc(200, 200,50,0,2*Math.PI, false);
+ ctx.closePath();
+ ctx.stroke();
+}
+ 
+function clear_canvas(){
+// Store the current transformation matrix
+// The save() method pushes the current state onto the stack..
+ctx.save();
+ 
+// Use the identity matrix while clearing the canvas
+// the setTransform() method lets you scale, rotate, move, and skew the current context.
+// setTransform(Horizontal scaling, Horizontal skewing,Vertical skewing, Vertical scaling, Horizontal moving, Vertical moving)
+ctx.setTransform(1, 0, 0, 1, 0, 0);
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+// Restore the transform
+// The restore() method pops the top state on the stack, restoring the context to that state.
+ctx.restore();
+}
+// ]]&gt;&lt;/script&gt;
+&lt;p&gt;&lt;button onclick="draw()"&gt;繪圖&lt;/button&gt; &lt;button onclick="clear_canvas()"&gt;清除&lt;/button&gt;&lt;/p&gt;</pre>
+<p><br/><br/>game3 canvas1</p>
 <p><p1>不明ㄉ圈圈</p1></p>
 <p><canvas height="300" id="canvas" width="400"> Your browser doesn't support the HTML5 element canvas. </canvas></p>
 <script>// <![CDATA[
@@ -194,327 +388,68 @@ ctx.clearRect(0, 0, canvas.width, canvas.height);
 ctx.restore();
 }
 // ]]></script>
-<h2>game 4 齒輪</h2>
 <p><button onclick="draw()">繪圖</button> <button onclick="clear_canvas()">清除</button></p>
-<!-- 導入 Brython 標準程式庫 -->
-<script src="/static/brython.js"></script>
-<script src="/static/brython_stdlib.js"></script>
-<p></p>
-<!-- 啟動 Brython -->
+<h2>game 3</h2>
+<p><canvas height="300" id="canvas" width="400"> Your browser doesn't support the HTML5 element canvas. </canvas></p>
 <script>// <![CDATA[
-window.onload=function(){
-// 設定 data/py 為共用程式路徑
-brython({debug:1, pythonpath:['./../data/py']});
+canvas = document.getElementById("canvas");
+ctx = canvas.getContext('2d');
+  
+function draw(){
+ ctx.beginPath();
+ ctx.strokeStyle = "rgb(200,0,0)";
+ ctx.arc(200, 200,50,0,2*Math.PI, false);
+ ctx.closePath();
+ ctx.stroke();
+}
+  
+function clear_canvas(){
+// Store the current transformation matrix
+// The save() method pushes the current state onto the stack..
+ctx.save();
+  
+// Use the identity matrix while clearing the canvas
+// the setTransform() method lets you scale, rotate, move, and skew the current context.
+// setTransform(Horizontal scaling, Horizontal skewing,Vertical skewing, Vertical scaling, Horizontal moving, Vertical moving)
+ctx.setTransform(1, 0, 0, 1, 0, 0);
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+// Restore the transform
+// The restore() method pops the top state on the stack, restoring the context to that state.
+ctx.restore();
 }
 // ]]></script>
-<p><canvas height="600" id="onegear" width="800"></canvas></p>
-<!-- 以下製作 button-->
-<div height="20" id="onegear_div" width="800"></div>
-<p><input id="n" type="text" value="22"/><br/> <button id="button">Set Number of Gears</button></p>
-<!-- 以下實際利用  Brython 繪圖-->
-<script type="text/python3">// <![CDATA[
-from browser import document as doc
-import math
-# deg 為角度轉為徑度的轉換因子
-deg = math.pi/180.
-# 定義 Spur 類別
-class Spur(object):
-    def __init__(self, ctx):
-        self.ctx = ctx
-  
-    def create_line(self, x1, y1, x2, y2, width=3, fill="red"):
-        self.ctx.beginPath()
-        self.ctx.lineWidth = width
-        self.ctx.moveTo(x1, y1)
-        self.ctx.lineTo(x2, y2)
-        self.ctx.strokeStyle = fill
-        self.ctx.stroke()
-  
-    # 定義一個繪正齒輪的繪圖函式
-    # midx 為齒輪圓心 x 座標
-    # midy 為齒輪圓心 y 座標
-    # rp 為節圓半徑, n 為齒數
-    # pa 為壓力角 (deg)
-    # rot 為旋轉角 (deg)
-    # 已經針對 n 大於等於 52 齒時的繪圖錯誤修正, 因為 base circle 與齒根圓大小必須進行判斷
-    def Gear(self, midx, midy, rp, n=20, pa=20, color="black"):
-        # 齒輪漸開線分成 15 線段繪製
-        imax = 15
-        # 在輸入的畫布上繪製直線, 由圓心到節圓 y 軸頂點畫一直線
-        self.create_line(midx, midy, midx, midy-rp)
-        # a 為模數 (代表公制中齒的大小), 模數為節圓直徑(稱為節徑)除以齒數
-        # 模數也就是齒冠大小
-        a=2*rp/n
-        # d 為齒根大小, 為模數的 1.157 或 1.25倍, 這裡採 1.25 倍
-        d=2.5*rp/n
-        # ra 為齒輪的外圍半徑
-        ra=rp+a
-        # rb 則為齒輪的基圓半徑
-        # 基圓為漸開線長齒之基準圓
-        rb=rp*math.cos(pa*deg)
-        # rd 為齒根圓半徑
-        rd=rp-d
-        # 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
-        # dr 則為基圓到齒頂圓半徑分成 imax 段後的每段半徑增量大小
-        # 將圓弧分成 imax 段來繪製漸開線
-        # 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
-        if rd>rb:
-            dr = (ra-rd)/imax
-        else:
-            dr=(ra-rb)/imax
-        # tan(pa*deg)-pa*deg 為漸開線函數
-        sigma=math.pi/(2*n)+math.tan(pa*deg)-pa*deg
-        for j in range(n):
-            ang=-2.*j*math.pi/n+sigma
-            ang2=2.*j*math.pi/n+sigma
-            lxd=midx+rd*math.sin(ang2-2.*math.pi/n)
-            lyd=midy-rd*math.cos(ang2-2.*math.pi/n)
-            for i in range(imax+1):
-                # 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
-                if rd>rb:
-                    r=rd+i*dr
-                else:
-                    r=rb+i*dr
-                theta=math.sqrt((r*r)/(rb*rb)-1.)
-                alpha=theta-math.atan(theta)
-                xpt=r*math.sin(alpha-ang)
-                ypt=r*math.cos(alpha-ang)
-                xd=rd*math.sin(-ang)
-                yd=rd*math.cos(-ang)
-                # i=0 時, 繪線起點由齒根圓上的點, 作為起點
-                if(i==0):
-                    last_x = midx+xd
-                    last_y = midy-yd
-                # 由左側齒根圓作為起點, 除第一點 (xd,yd) 齒根圓上的起點外, 其餘的 (xpt,ypt)則為漸開線上的分段點
-                self.create_line((midx+xpt),(midy-ypt),(last_x),(last_y),fill=color)
-                # 最後一點, 則為齒頂圓
-                if(i==imax):
-                    lfx=midx+xpt
-                    lfy=midy-ypt
-                last_x = midx+xpt
-                last_y = midy-ypt
-            # the line from last end of dedendum point to the recent
-            # end of dedendum point
-            # lxd 為齒根圓上的左側 x 座標, lyd 則為 y 座標
-            # 下列為齒根圓上用來近似圓弧的直線
-            self.create_line((lxd),(lyd),(midx+xd),(midy-yd),fill=color)
-            for i in range(imax+1):
-                # 當 rd 大於 rb 時, 漸開線並非畫至 rb, 而是 rd
-                if rd>rb:
-                    r=rd+i*dr
-                else:
-                    r=rb+i*dr
-                theta=math.sqrt((r*r)/(rb*rb)-1.)
-                alpha=theta-math.atan(theta)
-                xpt=r*math.sin(ang2-alpha)
-                ypt=r*math.cos(ang2-alpha)
-                xd=rd*math.sin(ang2)
-                yd=rd*math.cos(ang2)
-                # i=0 時, 繪線起點由齒根圓上的點, 作為起點
-                if(i==0):
-                    last_x = midx+xd
-                    last_y = midy-yd
-                # 由右側齒根圓作為起點, 除第一點 (xd,yd) 齒根圓上的起點外, 其餘的 (xpt,ypt)則為漸開線上的分段點
-                self.create_line((midx+xpt),(midy-ypt),(last_x),(last_y),fill=color)
-                # 最後一點, 則為齒頂圓
-                if(i==imax):
-                    rfx=midx+xpt
-                    rfy=midy-ypt
-                last_x = midx+xpt
-                last_y = midy-ypt
-            # lfx 為齒頂圓上的左側 x 座標, lfy 則為 y 座標
-            # 下列為齒頂圓上用來近似圓弧的直線
-            self.create_line(lfx,lfy,rfx,rfy,fill=color)
-canvas = doc['onegear']
-ctx = canvas.getContext("2d")
-  
-# 以 button 驅動的事件函式
-def setgearnumber(e):
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    x = (canvas.width)/2
-    y = (canvas.height)/2
-    if doc["n"].value.isdigit():
-        n1 = int(doc["n"].value)
-    else:
-        n1= 25
-    # 設定齒輪參數
-    x = (canvas.width)/2
-    y = (canvas.height)/2
-    r = 0.6*(canvas.height/2)
-    pa = 20
-    # 繪出齒輪
-    Spur(ctx).Gear(x, y, r, n1, pa, "blue")
-#判定 button
-setgearnumber(True)
-doc['button'].bind('click',setgearnumber)
-// ]]></script>
-<h2>1</h2>
-<script src="/get_page/static/konva.min.js"></script>
-<div id="container"></div>
-<script>// <![CDATA[
-      var width = 800;
-      var height = 600;
+<p><button onclick="draw()">繪圖</button> <button onclick="clear_canvas()">清除</button></p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;p&gt;&lt;canvas height="300" id="canvas" width="400"&gt; Your browser doesn't support the HTML5 element canvas. &lt;/canvas&gt;&lt;/p&gt;
+&lt;script&gt;// &lt;![CDATA[
+canvas = document.getElementById("canvas");
+ctx = canvas.getContext('2d');
  
-      // globals
-      var curveLayer, lineLayer, anchorLayer, quad, bezier;
+function draw(){
+ ctx.beginPath();
+ ctx.strokeStyle = "rgb(200,0,0)";
+ ctx.arc(200, 200,50,0,2*Math.PI, false);
+ ctx.closePath();
+ ctx.stroke();
+}
  
-      function updateDottedLines() {
-        var q = quad;
-        var b = bezier;
+function clear_canvas(){
+// Store the current transformation matrix
+// The save() method pushes the current state onto the stack..
+ctx.save();
  
-        var quadLine = lineLayer.findOne('#quadLine');
-        var bezierLine = lineLayer.findOne('#bezierLine');
- 
-        quadLine.points([
-          q.start.attrs.x,
-          q.start.attrs.y,
-          q.control.attrs.x,
-          q.control.attrs.y,
-          q.end.attrs.x,
-          q.end.attrs.y
-        ]);
- 
-        bezierLine.points([
-          b.start.attrs.x,
-          b.start.attrs.y,
-          b.control1.attrs.x,
-          b.control1.attrs.y,
-          b.control2.attrs.x,
-          b.control2.attrs.y,
-          b.end.attrs.x,
-          b.end.attrs.y
-        ]);
-        lineLayer.draw();
-      }
-      function buildAnchor(x, y) {
-        var anchor = new Konva.Circle({
-          x: x,
-          y: y,
-          radius: 20,
-          stroke: '#666',
-          fill: '#ddd',
-          strokeWidth: 2,
-          draggable: true
-        });
- 
-        // add hover styling
-        anchor.on('mouseover', function() {
-          document.body.style.cursor = 'pointer';
-          this.strokeWidth(4);
-          anchorLayer.draw();
-        });
-        anchor.on('mouseout', function() {
-          document.body.style.cursor = 'default';
-          this.strokeWidth(2);
-          anchorLayer.draw();
-        });
- 
-        anchor.on('dragend', function() {
-          drawCurves();
-          updateDottedLines();
-        });
- 
-        anchorLayer.add(anchor);
-        return anchor;
-      }
-      function drawCurves() {
-        var context = curveLayer.getContext();
- 
-        context.clear();
- 
-        // draw quad
-        context.beginPath();
-        context.moveTo(quad.start.attrs.x, quad.start.attrs.y);
-        context.quadraticCurveTo(
-          quad.control.attrs.x,
-          quad.control.attrs.y,
-          quad.end.attrs.x,
-          quad.end.attrs.y
-        );
-        context.setAttr('strokeStyle', 'red');
-        context.setAttr('lineWidth', 4);
-        context.stroke();
- 
-        // draw bezier
-        context.beginPath();
-        context.moveTo(bezier.start.attrs.x, bezier.start.attrs.y);
-        context.bezierCurveTo(
-          bezier.control1.attrs.x,
-          bezier.control1.attrs.y,
-          bezier.control2.attrs.x,
-          bezier.control2.attrs.y,
-          bezier.end.attrs.x,
-          bezier.end.attrs.y
-        );
-        context.setAttr('strokeStyle', 'blue');
-        context.setAttr('lineWidth', 4);
-        context.stroke();
-      }
- 
-      var stage = new Konva.Stage({
-        container: 'container',
-        width: width,
-        height: height
-      });
- 
-      anchorLayer = new Konva.Layer();
-      lineLayer = new Konva.Layer();
- 
-      // curveLayer just contains a canvas which is drawn
-      // onto with the existing canvas API
-      curveLayer = new Konva.Layer();
- 
-      var quadLine = new Konva.Line({
-        dash: [10, 10, 0, 10],
-        strokeWidth: 3,
-        stroke: 'black',
-        lineCap: 'round',
-        id: 'quadLine',
-        opacity: 0.3,
-        points: [0, 0]
-      });
- 
-      var bezierLine = new Konva.Line({
-        dash: [10, 10, 0, 10],
-        strokeWidth: 3,
-        stroke: 'black',
-        lineCap: 'round',
-        id: 'bezierLine',
-        opacity: 0.3,
-        points: [0, 0]
-      });
- 
-      // add dotted line connectors
-      lineLayer.add(quadLine);
-      lineLayer.add(bezierLine);
- 
-      quad = {
-        start: buildAnchor(60, 30),
-        control: buildAnchor(240, 110),
-        end: buildAnchor(80, 160)
-      };
- 
-      bezier = {
-        start: buildAnchor(280, 20),
-        control1: buildAnchor(530, 40),
-        control2: buildAnchor(480, 150),
-        end: buildAnchor(300, 150)
-      };
- 
-      // keep curves insync with the lines
-      anchorLayer.on('beforeDraw', function() {
-        drawCurves();
-        updateDottedLines();
-      });
- 
-      stage.add(curveLayer);
-      stage.add(lineLayer);
-      stage.add(anchorLayer);
- 
-      drawCurves();
-      updateDottedLines();
-     
-// ]]></script><h1>期中操作影片</h1>
+// Use the identity matrix while clearing the canvas
+// the setTransform() method lets you scale, rotate, move, and skew the current context.
+// setTransform(Horizontal scaling, Horizontal skewing,Vertical skewing, Vertical scaling, Horizontal moving, Vertical moving)
+ctx.setTransform(1, 0, 0, 1, 0, 0);
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+// Restore the transform
+// The restore() method pops the top state on the stack, restoring the context to that state.
+ctx.restore();
+}
+// ]]&gt;&lt;/script&gt;
+&lt;p&gt;&lt;button onclick="draw()"&gt;繪圖&lt;/button&gt; &lt;button onclick="clear_canvas()"&gt;清除&lt;/button&gt;&lt;/p&gt;</pre><h2>1</h2>
+<p>var levels = { // Level data data: [{ // First level foreground: "desert-foreground", background: "clouds-background", entities: [] }, { // Second level foreground: "desert-foreground", background: "clouds-background", entities: [] }],</p>
+<p>// Initialize level selection screen init: function() { var levelSelectScreen = document.getElementById("levelselectscreen"); // An event handler to call var buttonClickHandler = function() { game.hideScreen("levelselectscreen"); // Level label values are 1, 2. Levels are 0, 1 levels.load(this.value - 1); }; for (let i = 0; i &lt; levels.data.length; i++) { var button = document.createElement("input"); button.type = "button"; button.value = (i + 1); // Level labels are 1, 2 button.addEventListener("click", buttonClickHandler); levelSelectScreen.appendChild(button); } }, // Load all data and images for a specific level load: function(number) { } init: function() { //Get handler for game canvas and context game.canvas = document.getElementById("gamecanvas"); game.context = game.canvas.getContext("2d"); // Initialize objects levels.init(); // Hide all game layers and display the start screen game.hideScreens(); game.showScreen("gamestartscreen"); }, We also need to add some CSS styling for the buttons inside styles.css, as shown in Listing 2-7. Listing 2-7. CSS Styles for the Level Selection Screen /* Level Selection Screen */ #levelselectscreen { padding-top: 150px; padding-left: 50px; } #levelselectscreen input { margin: 20px; cursor: pointer; background: url("images/icons/level.png") no-repeat; color: yellow; font-size: 20px; width: 64px; height: 64px; border: 0; /* Remove the default blue border when an input is selected */ outline: 0; } /* Loading Screen */ #loadingscreen { background: rgba(100, 100, 100, 0.5); } #loadingmessage { margin-top: 400px; text-align: center; height: 48px; color: white; background: url("images/loader.gif") no-repeat center; font: 12px Arial; } var loader = { loaded: true, loadedCount: 0, // Assets that have been loaded so far totalCount: 0, // Total number of assets that need loading init: function() { // Check for sound support var mp3Support, oggSupport; var audio = document.createElement("audio"); if (audio.canPlayType) { // Currently canPlayType() returns: "", "maybe" or "probably" mp3Support = "" !== audio.canPlayType("audio/mpeg"); oggSupport = "" !== audio.canPlayType("audio/ogg; codecs=\"vorbis\""); } else { // The audio tag is not supported mp3Support = false; oggSupport = false; } // Check for ogg, then mp3, and finally set soundFileExtn to undefined loader.soundFileExtn = oggSupport ? ".ogg" : mp3Support ? ".mp3" : undefined; }, loadImage: function(url) { this.loaded = false; this.totalCount++; game.showScreen("loadingscreen"); var image = new Image(); image.addEventListener("load", loader.itemLoaded, false); image.src = url; return image; }, soundFileExtn: ".ogg", loadSound: function(url) { this.loaded = false; this.totalCount++; game.showScreen("loadingscreen"); var audio = new Audio(); audio.addEventListener("canplaythrough", loader.itemLoaded, false); audio.src = url + loader.soundFileExtn; return audio; }, itemLoaded: function(ev) { // Stop listening for event type (load or canplaythrough) for this item now that it has been loaded ev.target.removeEventListener(ev.type, loader.itemLoaded, false); loader.loadedCount++; document.getElementById("loadingmessage").innerHTML = "Loaded " + loader.loadedCount + " of " + loader.totalCount; if (loader.loadedCount === loader.totalCount) { // Loader has loaded completely.. // Reset and clear the loader loader.loaded = true; loader.loadedCount = 0; loader.totalCount = 0; // Hide the loading screen game.hideScreen("loadingscreen"); // and call the loader.onload method if it exists if (loader.onload) { loader.onload(); loader.onload = undefined; } } } } init: function() { //Get handler for game canvas and context game.canvas = document.getElementById("gamecanvas"); game.context = game.canvas.getContext("2d"); // Initialize objects levels.init(); loader.init(); // Hide all game layers and display the start screen game.hideScreens(); game.showScreen("gamestartscreen"); }, // Load all data and images for a specific level load: function(number) { // Declare a new currentLevel object game.currentLevel = { number: number }; game.score = 0; document.getElementById("score").innerHTML = "Score: " + game.score; var level = levels.data[number]; // Load the background, foreground, and slingshot images game.currentLevel.backgroundImage = loader.loadImage("images/backgrounds/" + level. background + ".png"); game.currentLevel.foregroundImage = loader.loadImage("images/backgrounds/" + level. foreground + ".png"); game.slingshotImage = loader.loadImage("images/slingshot.png"); game.slingshotFrontImage = loader.loadImage("images/slingshot-front.png"); // Call game.start() once the assets have loaded loader.onload = game.start; } // Store current game state - intro, wait-for-firing, firing, fired, load-next-hero, success, failure mode: "intro", // X &amp; Y coordinates of the slingshot slingshotX: 140, slingshotY: 280, // X &amp; Y coordinate of point where band is attached to slingshot slingshotBandX: 140 + 55, slingshotBandY: 280 + 23, // Flag to check if the game has ended ended: false, // The game score score: 0, // X axis offset for panning the screen from left to right offsetLeft: 0, start: function() { game.hideScreens(); // Display the game canvas and score game.showScreen("gamecanvas"); game.showScreen("scorescreen"); game.mode = "intro"; game.currentHero = undefined; game.offsetLeft = 0; game.ended = false; game.animationFrame = window.requestAnimationFrame(game.animate, game.canvas); }, handleGameLogic: function() { // Temporary placeholder code. Keep panning the game towards the right game.offsetLeft++; }, animate: function() { // Handle panning, game states, and control flow game.handleGameLogic(); // Draw the background with parallax scrolling // First draw the background image, offset by a fraction of the offsetLeft distance (1/4) // The bigger the fraction, the closer the background appears to be game.context.drawImage(game.currentLevel.backgroundImage, game.offsetLeft / 4, 0, game. canvas.width, game.canvas.height, 0, 0, game.canvas.width, game.canvas.height); // Then draw the foreground image, offset by the entire offsetLeft distance game.context.drawImage(game.currentLevel.foregroundImage, game.offsetLeft, 0, game. canvas.width, game.canvas.height, 0, 0, game.canvas.width, game.canvas.height); // Draw the base of the slingshot, offset by the entire offsetLeft distance game.context.drawImage(game.slingshotImage, game.slingshotX - game.offsetLeft, game. slingshotY); // Draw the front of the slingshot, offset by the entire offsetLeft distance game.context.drawImage(game.slingshotFrontImage, game.slingshotX - game.offsetLeft, game.slingshotY); if (!game.ended) { game.animationFrame = window.requestAnimationFrame(game.animate, game.canvas); } }, /* Score Screen */ #scorescreen { height: 60px; font: 32px "Comic Sans MS"; text-shadow: 0 0 2px black; color: white; } #scorescreen img { opacity: 0.6; top: 5%; left: 5%; position: relative; padding: 8px; cursor: pointer; } #score { position: absolute; top: 5%; right: 5%; } var mouse = { x: 0, y: 0, down: false, dragging: false, init: function() { var canvas = document.getElementById("gamecanvas"); canvas.addEventListener("mousemove", mouse.mousemovehandler, false); canvas.addEventListener("mousedown", mouse.mousedownhandler, false); canvas.addEventListener("mouseup", mouse.mouseuphandler, false); canvas.addEventListener("mouseout", mouse.mouseuphandler, false); }, mousemovehandler: function(ev) { var offset = game.canvas.getBoundingClientRect(); mouse.x = ev.clientX - offset.left; mouse.y = ev.clientY - offset.top; if (mouse.down) { mouse.dragging = true; } ev.preventDefault(); }, mousedownhandler: function(ev) { mouse.down = true; ev.preventDefault(); }, mouseuphandler: function(ev) { mouse.down = false; mouse.dragging = false; ev.preventDefault(); } }; init: function() { // Get handler for game canvas and context game.canvas = document.getElementById("gamecanvas"); game.context = game.canvas.getContext("2d"); // Initialize objects levels.init(); loader.init(); mouse.init(); // Hide all game layers and display the start screen game.hideScreens(); game.showScreen("gamestartscreen"); }, // Maximum panning speed per frame in pixels maxSpeed: 3, // Pan the screen so it centers at newCenter // (or at least as close as possible) panTo: function(newCenter) { // Minimum and Maximum panning offset var minOffset = 0; var maxOffset = game.currentLevel.backgroundImage.width - game.canvas.width; // The current center of the screen is half the screen width from the left offset var currentCenter = game.offsetLeft + game.canvas.width / 2; // If the distance between new center and current center is &gt; 0 and we have not panned to the min and max offset limits, keep panning if (Math.abs(newCenter - currentCenter) &gt; 0 &amp;&amp; game.offsetLeft &lt;= maxOffset &amp;&amp; game. offsetLeft &gt;= minOffset) { // We will travel half the distance from the newCenter to currentCenter in each tick // This will allow easing var deltaX = (newCenter - currentCenter) / 2; // However if deltaX is really high, the screen will pan too fast, so if it is greater than maxSpeed if (Math.abs(deltaX) &gt; game.maxSpeed) { // Limit deltaX to game.maxSpeed (and keep the sign of deltaX) deltaX = game.maxSpeed * Math.sign(deltaX); } // And if we have almost reached the goal, just get to the ending in this turn if (Math.abs(deltaX) &lt;= 1) { deltaX = (newCenter - currentCenter); } // Finally add the adjusted deltaX to offsetX so we move the screen by deltaX game.offsetLeft += deltaX; // And make sure we don't cross the minimum or maximum limits if (game.offsetLeft &lt;= minOffset) { game.offsetLeft = minOffset; // Let calling function know that we have panned as close as possible to the newCenter return true; } else if (game.offsetLeft &gt;= maxOffset) { game.offsetLeft = maxOffset; // Let calling function know that we have panned as close as possible to the newCenter return true; } } else { // Let calling function know that we have panned as close as possible to the newCenter return true; } }, handleGameLogic: function() { if (game.mode === "intro") { if (game.panTo(700)) { game.mode = "load-next-hero"; } } if (game.mode === "wait-for-firing") { if (mouse.dragging) { game.panTo(mouse.x + game.offsetLeft); } else { game.panTo(game.slingshotX); } } if (game.mode === "load-next-hero") { // First count the heroes and villains and populate their respective arrays // Check if any villains are alive, if not, end the level (success) // Check if there are any more heroes left to load, if not end the level (failure) // Load the hero and set mode to wait-for-firing game.mode = "wait-for-firing"; } if (game.mode === "firing") { // If the mouse button is down, allow the hero to be dragged around and aimed // If not, fire the hero into the air } if (game.mode === "fired") { // Pan to the location of the current hero as he flies // Wait till the hero stops moving or is out of bounds } if (game.mode === "level-success" || game.mode === "level-failure") { // First pan all the way back to the left // Then show the game as ended and show the ending screen } },</p><h1>期中操作影片</h1>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/YPkEIaZh8vQ" width="560"></iframe></p>
 <h1>week3</h1>
 <p>根據 <a href="https://2019wcm.blogspot.com/2019/03/ungit.html">https://2019wcm.blogspot.com/2019/03/ungit.html</a> 的設定, 完成 ungit 配置.</p>
@@ -1000,3 +935,5 @@ COPY TO CLIPBOARD	</pre>
 <p>各頁面標題目前不支援特殊符號, 例如: "/", "?" 等, 若已經發生程式無法解讀頁面的情況, 只能從編輯 config/content.htm 下手, 若系統位於遠端, 則後續必須要再設法提供一個額外的編輯 config/content.htm 檔案的網際連結功能.</p>
 <h4>Video 引用不支援內部引用</h4>
 <p>tinymce 中插入 video 的小視窗, 要移除引用的圖像與連結, 因為一般建議不要在內容中存入 .mp4 的影片資料, 而只接受引入影片 URL 連結.</p>
+<h1>111</h1>
+<p>var levels = { // Level data data: [{ // First level foreground: "desert-foreground", background: "clouds-background", entities: [] }, { // Second level foreground: "desert-foreground", background: "clouds-background", entities: [] }], // Initialize level selection screen init: function() { var levelSelectScreen = document.getElementById("levelselectscreen"); // An event handler to call var buttonClickHandler = function() { game.hideScreen("levelselectscreen"); // Level label values are 1, 2. Levels are 0, 1 levels.load(this.value - 1); }; for (let i = 0; i &lt; levels.data.length; i++) { var button = document.createElement("input"); button.type = "button"; button.value = (i + 1); // Level labels are 1, 2 button.addEventListener("click", buttonClickHandler); levelSelectScreen.appendChild(button); } }, // Load all data and images for a specific level load: function(number) { } };</p>

@@ -78,34 +78,10 @@ $(document).ready(doSearch);
 
 </ul>
 </confmenu></header>
-<div class='container'><nav><ul id='css3menu1' class='topmenu'><div class="tipue_search_group"><input style="width: 6vw;" type="text" name="q" id="tipue_search_input" pattern=".{2,}" title="Press enter key to search" required></div><li><a href='Game.html'>Game</a><ul><li><a href='game1.html'>game1</a><li><a href='game2.html'>game2</a><li><a href='game3 canvas1.html'>game3 canvas1</a><li><a href='game 4 齒輪.html'>game 4 齒輪</a><li><a href='1.html'>1</a></li></ul><li><a href='期中操作影片.html'>期中操作影片</a><li><a href='week3.html'>week3</a><li><a href='git http 與 ssh.html'>git http 與 ssh</a><li><a href='目錄結構.html'>目錄結構</a><li><a href='頁面編輯.html'>頁面編輯</a><ul><li><a href='插入程式碼.html'>插入程式碼</a><ul><li><a href='Java 程式碼.html'>Java 程式碼</a><li><a href='Python 程式碼.html'>Python 程式碼</a><li><a href='C或C++程式碼.html'>C或C++程式碼</a><li><a href='Lua 程式碼.html'>Lua 程式碼</a><li><a href='Javascript 程式碼.html'>Javascript 程式碼</a><li><a href='Html 原始碼.html'>Html 原始碼</a></li></li></ul></ul><li><a href='網際簡報.html'>網際簡報</a><li><a href='網誌編輯.html'>網誌編輯</a><li><a href='已知錯誤.html'>已知錯誤</a></li></ul></nav><section><div id="tipue_search_content">game2 << <a href='game2.html'>Previous</a> <a href='game 4 齒輪.html'>Next</a> >> game 4 齒輪<br /><h1>game3 canvas1</h1>
-<p><p1>不明ㄉ圈圈</p1></p>
-<p><canvas height="300" id="canvas" width="400"> Your browser doesn't support the HTML5 element canvas. </canvas></p>
+<div class='container'><nav><ul id='css3menu1' class='topmenu'><div class="tipue_search_group"><input style="width: 6vw;" type="text" name="q" id="tipue_search_input" pattern=".{2,}" title="Press enter key to search" required></div><li><a href='Game.html'>Game</a><ul><li><a href='game1.html'>game1</a><li><a href='game 2.html'>game 2</a><li><a href='game 3.html'>game 3</a><li><a href='1.html'>1</a></li></ul><li><a href='期中操作影片.html'>期中操作影片</a><li><a href='week3.html'>week3</a><li><a href='git http 與 ssh.html'>git http 與 ssh</a><li><a href='目錄結構.html'>目錄結構</a><li><a href='頁面編輯.html'>頁面編輯</a><ul><li><a href='插入程式碼.html'>插入程式碼</a><ul><li><a href='Java 程式碼.html'>Java 程式碼</a><li><a href='Python 程式碼.html'>Python 程式碼</a><li><a href='C或C++程式碼.html'>C或C++程式碼</a><li><a href='Lua 程式碼.html'>Lua 程式碼</a><li><a href='Javascript 程式碼.html'>Javascript 程式碼</a><li><a href='Html 原始碼.html'>Html 原始碼</a></li></li></ul></ul><li><a href='網際簡報.html'>網際簡報</a><li><a href='網誌編輯.html'>網誌編輯</a><li><a href='已知錯誤.html'>已知錯誤</a><li><a href='111.html'>111</a></li></ul></nav><section><div id="tipue_search_content">已知錯誤 << <a href='已知錯誤.html'>Previous</a> <br /><h1>111</h1>
+<p>The Origami Frog</p>
 <script>// <![CDATA[
-canvas = document.getElementById("canvas");
-ctx = canvas.getContext('2d');
- 
-function draw(){
- ctx.beginPath();
- ctx.strokeStyle = "rgb(200,0,0)";
- ctx.arc(200, 200,50,0,2*Math.PI, false);
- ctx.closePath();
- ctx.stroke();
-}
- 
-function clear_canvas(){
-// Store the current transformation matrix
-// The save() method pushes the current state onto the stack..
-ctx.save();
- 
-// Use the identity matrix while clearing the canvas
-// the setTransform() method lets you scale, rotate, move, and skew the current context.
-// setTransform(Horizontal scaling, Horizontal skewing,Vertical skewing, Vertical scaling, Horizontal moving, Vertical moving)
-ctx.setTransform(1, 0, 0, 1, 0, 0);
-ctx.clearRect(0, 0, canvas.width, canvas.height);
-// Restore the transform
-// The restore() method pops the top state on the stack, restoring the context to that state.
-ctx.restore();
+ var img = new Image(); img.src = "frogface.gif"; var ctx; function init() {        ctx =document.getElementById("canvas").getContext('2d');        ctx.drawImage(img,10,20,100,100);
 }
 // ]]></script>
-<p><button onclick="draw()">繪圖</button> <button onclick="clear_canvas()">清除</button></p><br />game2 << <a href='game2.html'>Previous</a> <a href='game 4 齒輪.html'>Next</a> >> game 4 齒輪</div></section></div></body></html>
+<p><canvas height="300" id="canvas" width="400"> Your browser doesn't support the HTML5 element canvas. </canvas></p><br />已知錯誤 << <a href='已知錯誤.html'>Previous</a> </div></section></div></body></html>
