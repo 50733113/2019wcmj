@@ -147,11 +147,97 @@ init_mathjax();
           </div>
           
         </header>
-    <div id="tipue_search_content">目錄結構 << <a href='目錄結構.html'>Previous</a> <a href='插入程式碼.html'>Next</a> >> 插入程式碼<br /><h1>頁面編輯</h1>
-<p>CMSimfly 動態系統的網際編輯器採用 <a href="https://www.tiny.cloud/">TinyMCE4</a>, 可以放入一般超文件,  納入圖檔, 嵌入影片連結, 並且加入帶有行數的原始碼.</p>
-<p>透過 File Upload 功能, 可以一次上傳多個檔案,  存入 downloads 目錄中儲存, 之後各頁面可以引入對應連結.</p>
-<p>而圖檔的上傳與引用與一般檔案類似, 但上傳後存入 images 目錄中.</p>
-<br />目錄結構 << <a href='目錄結構.html'>Previous</a> <a href='插入程式碼.html'>Next</a> >> 插入程式碼</div>
+    <div id="tipue_search_content">ROC flag(w14) << <a href='ROC flag(w14).html'>Previous</a> <a href='ROC Flag 成果.html'>Next</a> >> ROC Flag 成果<br /><h1>課程內容</h1>
+<hr/><hr/>
+<p><strong>1.利用Javascirpt完成老師指定頁面的國旗</strong></p>
+<p><a href="http://mde.tw/wcm2019/content/ROC%20flag.html">http://mde.tw/wcm2019/content/ROC%20flag.html</a></p>
+<p>2.<strong>國旗的程式碼</strong></p>
+<p>      1.Plotarea2等以此類如要增加第2、3面旗幟則須將Plotarea改成Plotarea2等以此類推，否則旗幟會出不來。</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;!-- 導入 Brython 標準程式庫 --&gt;
+&lt;script src="./../static/brython.js"&gt;&lt;/script&gt;
+&lt;script src="./../static/brython_stdlib.js"&gt;&lt;/script&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;!-- 啟動 Brython --&gt;
+&lt;script&gt;// &lt;![CDATA[
+window.onload=function(){
+// 設定 data/py 為共用程式路徑
+brython({debug:1, pythonpath:['./../data/py']});
+}
+// ]]&gt;&lt;/script&gt;
+&lt;p&gt;&lt;canvas height="400" id="plotarea" width="600"&gt;&lt;/canvas&gt;&lt;/p&gt;
+&lt;script type="text/python"&gt;// &lt;![CDATA[
+# 導入 doc
+from browser import document as doc
+import math
+ 
+# 準備繪圖畫布
+canvas = doc["plotarea"]
+ctx = canvas.getContext("2d")
+# 進行座標轉換, x 軸不變, y 軸反向且移動 canvas.height 單位光點
+# ctx.setTransform(1, 0, 0, -1, 0, canvas.height)
+# 以下採用 canvas 原始座標繪圖
+flag_w = canvas.width
+flag_h = canvas.height
+circle_x = flag_w/4
+circle_y = flag_h/4
+# 先畫滿地紅
+ctx.fillStyle='rgb(255, 0, 0)'
+ctx.fillRect(0,0,flag_w,flag_h)
+# 再畫青天
+ctx.fillStyle='rgb(0, 0, 150)'
+ctx.fillRect(0,0,flag_w/2,flag_h/2)
+# 畫十二道光芒白日
+ctx.beginPath()
+star_radius = flag_w/8
+angle = 0
+for i in range(24):
+    angle += 5*math.pi*2/12
+    toX = circle_x + math.cos(angle)*star_radius
+    toY = circle_y + math.sin(angle)*star_radius
+    # 只有 i 為 0 時移動到 toX, toY, 其餘都進行 lineTo
+    if (i):
+        ctx.lineTo(toX, toY)
+    else:
+        ctx.moveTo(toX, toY)
+ctx.closePath()
+# 將填色設為白色
+ctx.fillStyle = '#fff'
+ctx.fill()
+# 白日:藍圈
+ctx.beginPath()
+ctx.arc(circle_x, circle_y, flag_w*17/240, 0, math.pi*2, True)
+ctx.closePath()
+# 填色設為藍色
+ctx.fillStyle = 'rgb(0, 0, 149)'
+ctx.fill()
+# 白日:白心
+ctx.beginPath()
+ctx.arc(circle_x, circle_y, flag_w/16, 0, math.pi*2, True)
+ctx.closePath()
+# 填色設為白色
+ctx.fillStyle = '#fff'
+ctx.fill()
+// ]]&gt;&lt;/script&gt;</pre>
+<p><strong>3.輸入完程式碼確認<span style="color: #ff0000;">無誤</span>後發現旗幟還是出不來，可利用開發人員工具查看錯誤，目前最有可能的是去<span style="color: #ff0000;">flaskapp.py</span>作修改</strong></p>
+<p>(1)<span style="color: #0000ff;">def savePage() 的修改</span></p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">def savePage():
+    """save all pages function"""
+    page_content = request.form['page_content']
+    # when element_format : "html", need to remove the annoying comment to prevent brython exec
+    page_content = [w.replace('// &lt;![CDATA[', '') for w in page_content]
+    page_content = [w.replace('// ]]&gt;', '') for w in page_content]
+    # check if administrator
+</pre>
+<p>(3)<span style="color: #0000ff;">def ssavePage() 的修改</span></p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">def ssavePage():
+    """seperate save page function"""
+    page_content = request.form['page_content']
+    # when element_format : "html", need to remove the annoying comment to prevent brython exec
+    page_content = page_content.replace('// &lt;![CDATA[', '')
+    page_content = page_content.replace('// ]]&gt;', '')
+    page_order = request.form['page_order']
+    if not isAdmin():
+</pre><br />ROC flag(w14) << <a href='ROC flag(w14).html'>Previous</a> <a href='ROC Flag 成果.html'>Next</a> >> ROC Flag 成果</div>
         
     <!-- footer -->
       <div class="container">
