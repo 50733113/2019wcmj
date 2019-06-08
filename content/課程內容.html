@@ -136,7 +136,7 @@ init_mathjax();
                             <li><a href="./../blog/index.html">blog</a></li>
                         </ul>
                       </li>
-                     <li><a href='首頁.html'>首頁</a><li class='has-children'><a href='ROC flag(w14).html'>ROC flag(w14)</a><ul class='dropdown'><li><a href='課程內容.html'>課程內容</a><li><a href='ROC Flag 成果.html'>ROC Flag 成果</a></li></ul><li class='has-children'><a href='(w15).html'>(w15)</a><ul class='dropdown'><li class='has-children'><a href='校園免費授權.html'>校園免費授權</a><ul class='dropdown'><li><a href='windows 10.html'>windows 10</a></li></ul><li><a href='TWAREN SSL-VPN.html'>TWAREN SSL-VPN</a><li><a href='Ubuntu 18.04.html'>Ubuntu 18.04</a></li></ul><li class='has-children'><a href='Game.html'>Game</a><ul class='dropdown'><li><a href='game1.html'>game1</a><li><a href='game 2.html'>game 2</a><li><a href='game 3.html'>game 3</a><li><a href='1.html'>1</a><li><a href='2.html'>2</a></li></ul><li><a href='期中操作影片.html'>期中操作影片</a><li><a href='week3.html'>week3</a><li><a href='git http 與 ssh.html'>git http 與 ssh</a><li><a href='目錄結構.html'>目錄結構</a><li class='has-children'><a href='頁面編輯.html'>頁面編輯</a><ul class='dropdown'><li class='has-children'><a href='插入程式碼.html'>插入程式碼</a><ul class='dropdown'><li><a href='Java 程式碼.html'>Java 程式碼</a><li><a href='Python 程式碼.html'>Python 程式碼</a><li><a href='C或C++程式碼.html'>C或C++程式碼</a><li><a href='Lua 程式碼.html'>Lua 程式碼</a><li><a href='Javascript 程式碼.html'>Javascript 程式碼</a><li><a href='Html 原始碼.html'>Html 原始碼</a></li></li></ul></ul><li><a href='網際簡報.html'>網際簡報</a><li><a href='網誌編輯.html'>網誌編輯</a><li><a href='已知錯誤.html'>已知錯誤</a><li><a href='111.html'>111</a><li><a href='131.html'>131</a></li>
+                     <li><a href='首頁簡介.html'>首頁簡介</a><li class='has-children'><a href='課程內容.html'>課程內容</a><ul class='dropdown'><li class='has-children'><a href='校園免費授權.html'>校園免費授權</a><ul class='dropdown'><li><a href='windows 10.html'>windows 10</a></li></ul><li><a href='TWAREN SSL-VPN.html'>TWAREN SSL-VPN</a><li><a href='Ubuntu 18.04.html'>Ubuntu 18.04</a></li></ul><li class='has-children'><a href='ROC flag(w14).html'>ROC flag(w14)</a><ul class='dropdown'><li><a href='ROC Flag 成果.html'>ROC Flag 成果</a></li></ul><li class='has-children'><a href='程式.html'>程式</a><ul class='dropdown'><li><a href='亂數產生系統.html'>亂數產生系統</a><li><a href='骰子.html'>骰子</a><li><a href='繪圖.html'>繪圖</a><li><a href='2.html'>2</a></li></ul><li><a href='期中操作影片.html'>期中操作影片</a><li><a href='期末報告.html'>期末報告</a><li class='has-children'><a href='頁面資源.html'>頁面資源</a><ul class='dropdown'><li><a href='git http 與 ssh.html'>git http 與 ssh</a><li><a href='目錄結構.html'>目錄結構</a><li><a href='頁面編輯.html'>頁面編輯</a><li class='has-children'><a href='插入程式碼.html'>插入程式碼</a><ul class='dropdown'><li><a href='Java 程式碼.html'>Java 程式碼</a><li><a href='Python 程式碼.html'>Python 程式碼</a><li><a href='C或C++程式碼.html'>C或C++程式碼</a><li><a href='Lua 程式碼.html'>Lua 程式碼</a><li><a href='Javascript 程式碼.html'>Javascript 程式碼</a><li><a href='Html 原始碼.html'>Html 原始碼</a></li></ul><li><a href='網際簡報.html'>網際簡報</a><li><a href='網誌編輯.html'>網誌編輯</a><li><a href='已知錯誤.html'>已知錯誤</a></li>
                       </ul>
                 </nav>
               </div>
@@ -147,97 +147,9 @@ init_mathjax();
           </div>
           
         </header>
-    <div id="tipue_search_content">ROC flag(w14) << <a href='ROC flag(w14).html'>Previous</a> <a href='ROC Flag 成果.html'>Next</a> >> ROC Flag 成果<br /><h1>課程內容</h1>
-<hr/><hr/>
-<p><strong>1.利用Javascirpt完成老師指定頁面的國旗</strong></p>
-<p><a href="http://mde.tw/wcm2019/content/ROC%20flag.html">http://mde.tw/wcm2019/content/ROC%20flag.html</a></p>
-<p>2.<strong>國旗的程式碼</strong></p>
-<p>      1.Plotarea2等以此類如要增加第2、3面旗幟則須將Plotarea改成Plotarea2等以此類推，否則旗幟會出不來。</p>
-<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;!-- 導入 Brython 標準程式庫 --&gt;
-&lt;script src="./../static/brython.js"&gt;&lt;/script&gt;
-&lt;script src="./../static/brython_stdlib.js"&gt;&lt;/script&gt;
-&lt;p&gt;&lt;/p&gt;
-&lt;!-- 啟動 Brython --&gt;
-&lt;script&gt;// &lt;![CDATA[
-window.onload=function(){
-// 設定 data/py 為共用程式路徑
-brython({debug:1, pythonpath:['./../data/py']});
-}
-// ]]&gt;&lt;/script&gt;
-&lt;p&gt;&lt;canvas height="400" id="plotarea" width="600"&gt;&lt;/canvas&gt;&lt;/p&gt;
-&lt;script type="text/python"&gt;// &lt;![CDATA[
-# 導入 doc
-from browser import document as doc
-import math
- 
-# 準備繪圖畫布
-canvas = doc["plotarea"]
-ctx = canvas.getContext("2d")
-# 進行座標轉換, x 軸不變, y 軸反向且移動 canvas.height 單位光點
-# ctx.setTransform(1, 0, 0, -1, 0, canvas.height)
-# 以下採用 canvas 原始座標繪圖
-flag_w = canvas.width
-flag_h = canvas.height
-circle_x = flag_w/4
-circle_y = flag_h/4
-# 先畫滿地紅
-ctx.fillStyle='rgb(255, 0, 0)'
-ctx.fillRect(0,0,flag_w,flag_h)
-# 再畫青天
-ctx.fillStyle='rgb(0, 0, 150)'
-ctx.fillRect(0,0,flag_w/2,flag_h/2)
-# 畫十二道光芒白日
-ctx.beginPath()
-star_radius = flag_w/8
-angle = 0
-for i in range(24):
-    angle += 5*math.pi*2/12
-    toX = circle_x + math.cos(angle)*star_radius
-    toY = circle_y + math.sin(angle)*star_radius
-    # 只有 i 為 0 時移動到 toX, toY, 其餘都進行 lineTo
-    if (i):
-        ctx.lineTo(toX, toY)
-    else:
-        ctx.moveTo(toX, toY)
-ctx.closePath()
-# 將填色設為白色
-ctx.fillStyle = '#fff'
-ctx.fill()
-# 白日:藍圈
-ctx.beginPath()
-ctx.arc(circle_x, circle_y, flag_w*17/240, 0, math.pi*2, True)
-ctx.closePath()
-# 填色設為藍色
-ctx.fillStyle = 'rgb(0, 0, 149)'
-ctx.fill()
-# 白日:白心
-ctx.beginPath()
-ctx.arc(circle_x, circle_y, flag_w/16, 0, math.pi*2, True)
-ctx.closePath()
-# 填色設為白色
-ctx.fillStyle = '#fff'
-ctx.fill()
-// ]]&gt;&lt;/script&gt;</pre>
-<p><strong>3.輸入完程式碼確認<span style="color: #ff0000;">無誤</span>後發現旗幟還是出不來，可利用開發人員工具查看錯誤，目前最有可能的是去<span style="color: #ff0000;">flaskapp.py</span>作修改</strong></p>
-<p>(1)<span style="color: #0000ff;">def savePage() 的修改</span></p>
-<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">def savePage():
-    """save all pages function"""
-    page_content = request.form['page_content']
-    # when element_format : "html", need to remove the annoying comment to prevent brython exec
-    page_content = [w.replace('// &lt;![CDATA[', '') for w in page_content]
-    page_content = [w.replace('// ]]&gt;', '') for w in page_content]
-    # check if administrator
-</pre>
-<p>(3)<span style="color: #0000ff;">def ssavePage() 的修改</span></p>
-<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">def ssavePage():
-    """seperate save page function"""
-    page_content = request.form['page_content']
-    # when element_format : "html", need to remove the annoying comment to prevent brython exec
-    page_content = page_content.replace('// &lt;![CDATA[', '')
-    page_content = page_content.replace('// ]]&gt;', '')
-    page_order = request.form['page_order']
-    if not isAdmin():
-</pre><br />ROC flag(w14) << <a href='ROC flag(w14).html'>Previous</a> <a href='ROC Flag 成果.html'>Next</a> >> ROC Flag 成果</div>
+    <div id="tipue_search_content">首頁簡介 << <a href='首頁簡介.html'>Previous</a> <a href='校園免費授權.html'>Next</a> >> 校園免費授權<br /><h1>課程內容</h1>
+<p><boby bgcolor="#cc0033"></boby></p>
+<br />首頁簡介 << <a href='首頁簡介.html'>Previous</a> <a href='校園免費授權.html'>Next</a> >> 校園免費授權</div>
         
     <!-- footer -->
       <div class="container">
