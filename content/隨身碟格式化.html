@@ -147,36 +147,20 @@ init_mathjax();
           </div>
           
         </header>
-    <div id="tipue_search_content">C或C++程式碼 << <a href='C或C++程式碼.html'>Previous</a> <a href='Javascript 程式碼.html'>Next</a> >> Javascript 程式碼<br /><h1>Lua 程式碼</h1>
-<pre class="brush:lua;auto-links:false;toolbar:false" contenteditable="false">-- 導入 js 模組
-js = require("js")
--- 取得 window
-window = js.global
--- 猜小於或等於 n 的整數
-big = 100
--- 計算猜測次數, 配合 while 至少會猜一次
-num = 1
--- 利用 window:prompt 方法回應取得使用者所猜的整數
-guess = window:prompt("請猜一個介於 1 到 "..big.." 的整數")
--- 利用數學模組的 random 函數以亂數產生答案
-answer = math.random(big)
-output = ""
--- 若沒猜對, 一直猜到對為止
-while answer ~= tonumber(guess) do
-    if answer &gt; tonumber(guess) then
-        output = "猜第 "..num.." 次, guess="..guess..", answer="..answer.." - too small"
-        print(output)
-    else
-        output = "猜第 "..num.." 次, guess="..guess..", answer="..answer.." - too big"
-        print(output)
-    end 
-    guess = window:prompt(output..", 請猜一個介於 1 到 "..big.." 的整數")
-    num = num + 1
-end
-print("總共猜了 "..num.." 次, answer=guess="..answer.." - correct")
-    </pre>
+    <div id="tipue_search_content">Proxy 設定 << <a href='Proxy 設定.html'>Previous</a> <a href='GitHub 倉儲建立.html'>Next</a> >> GitHub 倉儲建立<br /><h1>隨身碟格式化</h1>
+<p><b>格式化</b>是指對<a class="mw-redirect" href="https://zh.wikipedia.org/wiki/%E7%A3%81%E7%A2%9F" title="磁碟">磁碟</a>或<a class="mw-redirect" href="https://zh.wikipedia.org/wiki/%E7%A3%81%E7%A2%9F%E5%88%86%E5%8D%80" title="磁碟分割區">磁碟中的分割區</a>（<span lang="en">partition</span>）進行<a href="https://zh.wikipedia.org/wiki/%E5%88%9D%E5%A7%8B%E5%8C%96" title="初始化">初始化</a>的一種操作，這種操作通常會導致現有的磁碟或分割區中所有的檔案被清除。</p>
+<p>在<a class="mw-redirect" href="https://zh.wikipedia.org/wiki/Windows" title="Windows">Windows</a>環境下，格式化的操作相對簡單。</p>
+<p>通常的操作步驟是：先開啟「電腦」，接著在希望被執行格式化的碟符圖示上右擊，然後選擇「格式化」，再按照提示操作即可。需要注意的是：對硬碟執行格式化操作時，使用者需要擁有<a href="https://zh.wikipedia.org/wiki/%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E5%91%98" title="系統管理員">系統管理員</a>權限（僅限於Windows Vista以及此後推出的作業系統。）</p>
+<p>在Windows環境中，除了可以使用<a href="https://zh.wikipedia.org/wiki/%E5%9B%BE%E5%BD%A2%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2" title="圖形化使用者介面">圖形化的操作介面</a>執行格式化操作之外，也可以在<a href="https://zh.wikipedia.org/wiki/%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E5%AD%97%E5%85%83" title="命令提示字元">命令提示字元</a>中使用<span class="ilh-all" data-foreign-title="Diskpart" data-lang-code="en" data-lang-name="英語" data-orig-title="Diskpart"><span class="ilh-page"><a class="new" href="https://zh.wikipedia.org/w/index.php?title=Diskpart&amp;action=edit&amp;redlink=1" original-title="Diskpart（頁面不存在）">Diskpart</a></span></span>指令(僅限於<a href="https://zh.wikipedia.org/wiki/Windows_2000" title="Windows 2000">Windows 2000</a><span> </span>及以後的作業系統，包含<a class="mw-redirect" href="https://zh.wikipedia.org/wiki/Windows_PE" title="Windows PE">Windows PE</a>)進行操作。</p>
+<p><img caption="false" height="236" src="./../images/隨身碟格式化_1.png" width="350"/></p>
+<p><img caption="false" height="250" src="./../images/隨身碟格式化_2.png" width="149"/> </p>
 <p></p>
-<br />C或C++程式碼 << <a href='C或C++程式碼.html'>Previous</a> <a href='Javascript 程式碼.html'>Next</a> >> Javascript 程式碼</div>
+<p></p>
+<hr align="center" color="#1A1A1A" noshade="noshade" size="5" width="95%"/>
+<p><span>這裡比較 NTFS、FAT32 與 exFAT 這些 Windows 常用的檔案系統，讓您更容易選擇適合自己的檔案系統。</span></p>
+<p><span>顯示「檔案太大無法放置在目的檔案系統」，如果您確定您的硬碟還有足夠的空間，但是卻出現這樣的訊息，就表示問題可能出在檔案系統上，以下是 Windows 系統上常用的檔案系統比較，每一種檔案系統都有它的限制，例如 FAT32 的檔案大小就不能超過 4GB</span></p>
+<p>如果一開始沒有注意到，等到硬碟放了很多東西之後，要再重新格式化就很累了。因為現在的硬碟容量都非常大，如果是 Windows 個人電腦的內接式硬碟，可以直接選擇 NTFS，而如果是隨身碟或外接式硬碟，則可以考慮使用 exFAT，以現在新的硬碟來說，通常都不適合再使用舊的 FAT32 了</p>
+<p><img alt="" height="341" src="./../images/隨身碟格式化_3.png" width="624"/></p><br />Proxy 設定 << <a href='Proxy 設定.html'>Previous</a> <a href='GitHub 倉儲建立.html'>Next</a> >> GitHub 倉儲建立</div>
         
     <!-- footer -->
       <div class="container">
